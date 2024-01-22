@@ -10,9 +10,21 @@ curl -O https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-
  #To extract the contents of the file to your file system (preferably to your home directory), run the following command:
  tar -xf google-cloud-cli-460.0.0-linux-x86_64.tar.gz
 
- # Add to the path
+ # run the script
  ./google-cloud-sdk/install.sh
+
+# Add to the path
+
+GCLOUD_PATH="./google-cloud-sdk//bin"  # 
+
+# Add gcloud to PATH in the user's Bash profile
+echo 'export PATH=$PATH:'"$GCLOUD_PATH" >> ~/.bashrc
+
+# Apply the changes for the current session
+source ~/.bashrc
+
+echo "Google Cloud SDK added to the PATH. You can now use 'gcloud' command."
 
 
  # Initialize
- ./google-cloud-sdk/bin/gcloud init
+ gcloud init
