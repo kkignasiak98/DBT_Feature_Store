@@ -1,0 +1,24 @@
+## Ignore Terraform state files
+*.tfstate
+*.tfstate.backup
+*.tfstate.migrate
+
+# Ignore any .terraform directories
+**/.terraform/
+
+# Ignore crash log files
+crash.log
+
+# Ignore lock files
+*.lock.hcl
+
+# Ingore tar folders
+*.tar
+*.tar/
+
+
+
+#Ingore cloud sdk
+google-cloud-sdk/*
+**/google-cloud-sdk/
+google-cloud-cli-460.0.0-linux-x86_64.tar.gz
