@@ -24,7 +24,10 @@ api_list = [
   "dataflow.googleapis.com",
   "dataproc.googleapis.com",
   "metastore.googleapis.com",
+
+  # Apache Airflow
   "cloudscheduler.googleapis.com",
+  "composer.googleapis.com",
 
   # DevOps
   "containerregistry.googleapis.com",
