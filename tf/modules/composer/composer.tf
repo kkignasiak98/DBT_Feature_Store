@@ -10,6 +10,13 @@ resource "google_composer_environment" "cloud_composer_prod" {
       # Encapsulate both the version of Cloud Composer and the Apache Airflow
       # List of images https://cloud.google.com/composer/docs/concepts/versioning/composer-versions
       # Inplace update only in google-beta provider
+
+      airflow_config_overrides = {
+        # Setting default secret backend to Google Secret Manager
+        secrets-backend        = "airflow.providers.google.cloud.secrets.secret_manager.CloudSecretManagerBackend"
+        secrets-backend-kwargs = jsonencode({ "project_id" : "var.project_ID", "variables_prefix" : "airflow-variables", "sep" : "-", "connections_prefix" : "airflow-connections" })
+      }
+
     }
     workloads_config {
       scheduler {
@@ -30,8 +37,21 @@ resource "google_composer_environment" "cloud_composer_prod" {
         min_count  = 1
         max_count  = 3
       }
-
     }
-    environment_size = "ENVIRONMENT_SIZE_SMALL"
+
+    private_environment_config {
+      enable_private_endpoint = true
+     # master_ipv4_cidr_block  = var.master_ipv4_cidr_block
+     # cloud_composer_connection_subnetwork = "projects/${var.your_gcp_host_project}/regions/${var.region}/subnetworks/${var.your_shared_vpc_network_name}"
+    }
+
+    node_config {
+      network    = google_compute_network.composer_network.id
+      subnetwork = google_compute_subnetwork.composer_subnetwork.id
+    #  service_account = google_service_account.test.name
+    }
+    environment_size = "ENVIRONMENT_SIZE_MEDIUM"
   }
+
+  
 }
