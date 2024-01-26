@@ -15,3 +15,9 @@ module "dbt" {
     project_ID = var.project_ID
     resource_location = var.resource_location
 }
+
+module "dataproc" {
+    source     = "./modules/dataproc"
+    project_ID = var.project_ID
+    resource_location = var.resource_location
+}
