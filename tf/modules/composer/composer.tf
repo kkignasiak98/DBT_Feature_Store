@@ -35,7 +35,7 @@ resource "google_composer_environment" "cloud_composer_prod" {
         memory_gb  = 2
         storage_gb = 1
         min_count  = 1
-        max_count  = 3
+        max_count  = 1
       }
     }
 
@@ -50,7 +50,7 @@ resource "google_composer_environment" "cloud_composer_prod" {
       subnetwork = google_compute_subnetwork.composer_subnetwork.id
     #  service_account = google_service_account.test.name
     }
-    environment_size = "ENVIRONMENT_SIZE_MEDIUM"
+    environment_size = "ENVIRONMENT_SIZE_SMALL"
   }
 
   
