@@ -1,10 +1,11 @@
-resource "google_storage_bucket" "terraform_state_bucket" {
-  name          = "terraform_state_bucket_2024_01_26"
-  location      = var.resource_location
-  force_destroy = false
-  versioning {
-    enabled = true
-  }
-  storage_class = "STANDARD"
-  uniform_bucket_level_access = true
+variable resource_location {
+  type        = string
+  default     = "europe-central2"
+  description = "the GCP region in which the resources should be created"
+}
+
+variable project_ID {
+  type        = string
+  default     = ""
+  description = "the GCP project"
 }
