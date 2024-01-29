@@ -21,3 +21,9 @@ module "dataproc" {
     project_ID = var.project_ID
     resource_location = var.resource_location
 }
+
+module "gcs" {
+  source ="./modules/storage"
+  project_ID = var.project_ID
+  resource_location = var.resource_location
+}
