@@ -1,11 +1,45 @@
 locals {
-  project  = "dbt-feature-store"
-  region = "europe-central2"
+  project_ID          = "dbt-feature-store"
+  resource_location   = "europe-central2"
 }
 
 inputs = {
-  project = local.project
-  region = local.region 
+  project_ID  = local.project_ID 
+  resource_location = local.resource_location
+  bq_data_location = "EU"
+
+  api_list = [
+  # Standard
+  "compute.googleapis.com",
+  "iam.googleapis.com",
+  "storage-component.googleapis.com",
+  "cloudresourcemanager.googleapis.com",
+
+  # Big Query
+  "bigquery.googleapis.com",
+  "bigquerystorage.googleapis.com",
+
+  # Vertex AI
+  "aiplatform.googleapis.com",
+  "notebooks.googleapis.com",
+
+  # Data services
+  "dataflow.googleapis.com",
+  "dataproc.googleapis.com",
+  "metastore.googleapis.com",
+
+  # Apache Airflow
+  "cloudscheduler.googleapis.com",
+  "composer.googleapis.com",
+
+  # DevOps
+  "containerregistry.googleapis.com",
+  "secretmanager.googleapis.com",
+
+  # Services
+  "run.googleapis.com"
+
+]
 }
 
 
@@ -17,7 +51,7 @@ remote_state {
   }
   config = {
     bucket = "terraform_state_bucket_2024_01_26"
-    prefix  = "terraform/state"
+    prefix  = path_relative_to_include()
   }
 }
 
@@ -38,8 +72,8 @@ terraform {
 }
 
 provider "google" {
-  project     = "${local.project}"
-  region      = "${local.region}"
+  project     = "${local.project_ID}"
+  region      = "${local.resource_location}"
 }
 
 EOF
