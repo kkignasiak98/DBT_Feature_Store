@@ -1,6 +1,8 @@
 locals {
-  project_ID          = "dbt-feature-store"
-  resource_location   = "europe-central2"
+  inputs_from_tfvars = jsondecode(read_tfvars_file("/workspaces/DBT_Feature_Store/tf/common.tfvars"))
+
+  project_ID          = local.inputs_from_tfvars.project_ID
+  resource_location   = local.inputs_from_tfvars.resource_location 
 }
 
 inputs = {
