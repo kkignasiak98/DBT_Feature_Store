@@ -6,6 +6,11 @@ terraform {
     }
   }
 
+  backend "gcs" {
+  bucket  = "terraform_state_bucket_2024_01_26"
+  prefix  = "terraform/state"
+  }
+
 }
 provider "google" {
   project = var.project_ID
