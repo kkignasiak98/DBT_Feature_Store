@@ -5,44 +5,12 @@ locals {
   resource_location   = local.inputs_from_tfvars.resource_location 
 }
 
-inputs = {
-  project_ID  = local.project_ID 
-  resource_location = local.resource_location
-  bq_data_location = "EU"
-
-  api_list = [
-  # Standard
-  "compute.googleapis.com",
-  "iam.googleapis.com",
-  "storage-component.googleapis.com",
-  "cloudresourcemanager.googleapis.com",
-
-  # Big Query
-  "bigquery.googleapis.com",
-  "bigquerystorage.googleapis.com",
-
-  # Vertex AI
-  "aiplatform.googleapis.com",
-  "notebooks.googleapis.com",
-
-  # Data services
-  "dataflow.googleapis.com",
-  "dataproc.googleapis.com",
-  "metastore.googleapis.com",
-
-  # Apache Airflow
-  "cloudscheduler.googleapis.com",
-  "composer.googleapis.com",
-
-  # DevOps
-  "containerregistry.googleapis.com",
-  "secretmanager.googleapis.com",
-
-  # Services
-  "run.googleapis.com"
-
-]
-}
+inputs = merge(
+  local.inputs_from_tfvars,
+  {
+    # additional inputs
+  }
+)
 
 
 remote_state {
