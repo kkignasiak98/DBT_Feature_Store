@@ -1,5 +1,6 @@
 locals {
-  inputs_from_tfvars = jsondecode(read_tfvars_file("/workspaces/DBT_Feature_Store/tf/common.tfvars"))
+  var_location = "/workspaces/DBT_Feature_Store/tf/common.tfvars"
+  inputs_from_tfvars = jsondecode(read_tfvars_file(local.var_location))
 
   project_ID          = local.inputs_from_tfvars.project_ID
   resource_location   = local.inputs_from_tfvars.resource_location 
