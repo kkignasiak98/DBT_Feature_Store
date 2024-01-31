@@ -46,8 +46,8 @@ resource "google_composer_environment" "cloud_composer_prod" {
     }
 
     node_config {
-      network    = google_compute_network.composer_network.id
-      subnetwork = google_compute_subnetwork.composer_subnetwork.id
+      network    = var.network_ID
+      subnetwork = var.sub_network_ID
     #  service_account = google_service_account.test.name
     }
     environment_size = "ENVIRONMENT_SIZE_SMALL"

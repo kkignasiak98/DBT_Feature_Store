@@ -9,3 +9,16 @@ variable "project_ID" {
   default     = ""
   description = "the GCP project"
 }
+
+variable "network_ID" {
+  type        = string
+  default     = ""
+  description = "The Id of the VPC network for cloud composer"
+}
+
+
+variable "sub_network_ID" {
+  type        = string
+  default     = ""
+  description = "The Id of the sub_network for cloud composer"
+}
