@@ -32,8 +32,15 @@ api_list = [
   # DevOps
   "containerregistry.googleapis.com",
   "secretmanager.googleapis.com",
+  "containerregistry.googleapis.com",
 
   # Services
-  "run.googleapis.com"
+  "run.googleapis.com",
+
+  # Terraform Cloud or similar
+  "serviceusage.googleapis.com",
+
+  # For test
+  "datalineage.googleapis.com"
 
 ]

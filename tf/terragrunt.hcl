@@ -3,7 +3,14 @@ locals {
   inputs_from_tfvars = jsondecode(read_tfvars_file(local.var_location))
 
   project_ID          = local.inputs_from_tfvars.project_ID
-  resource_location   = local.inputs_from_tfvars.resource_location 
+  resource_location   = local.inputs_from_tfvars.resource_location
+
+
+  # Terraform cloud variables
+  tfc_hostname = "app.terraform.io" # For TFE, substitute the custom hostname for your TFE host
+  tfc_organization = "kkignasiak-code-miracles"
+  tfc_project      = "DBT_FEATURE_STORE"
+  workspace        = reverse(split("/", get_terragrunt_dir()))[0] # This will find the name of the module, such as "vpc"
 }
 
 inputs = merge(
@@ -13,18 +20,22 @@ inputs = merge(
   }
 )
 
-
-remote_state {
-  backend = "gcs" # S3 or gcs bucket are suported
-  generate = {
-    path      = "backend.tf"
-    if_exists = "overwrite_terragrunt" 
-  }
-  config = {
-    bucket = "terraform_state_bucket_2024_01_26"
-    prefix  = path_relative_to_include()
+generate "remote_state" {
+  path      = "backend.tf"
+  if_exists = "overwrite_terragrunt"
+  contents = <<EOF
+terraform {
+  backend "remote" {
+    hostname = "${local.tfc_hostname}"
+    organization = "${local.tfc_organization}"
+    workspaces {
+      name = "${local.tfc_project}-${local.workspace}"
+    }
   }
 }
+EOF
+}
+
 
 generate "providers" {
   path = "providers.tf"
