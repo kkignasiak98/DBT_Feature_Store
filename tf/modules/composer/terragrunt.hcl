@@ -23,3 +23,14 @@ inputs = {
   network_ID = dependency.vpc.outputs.composer_network_ID
   sub_network_ID = dependency.vpc.outputs.composer_sub_network_ID
 }
+
+generate "dependency_tfvars" {
+  path      = "dependency.auto.tfvars.json"
+  if_exists = "overwrite"
+  disable_signature = true
+  contents = <<EOF
+${jsonencode( { network_ID:"${dependency.vpc.outputs.composer_network_ID}",
+                sub_network_ID:"${dependency.vpc.outputs.composer_sub_network_ID}"
+              })}
+EOF
+}
