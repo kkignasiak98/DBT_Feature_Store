@@ -60,3 +60,12 @@ provider "google" {
 
 EOF
 }
+
+generate "tfvars" {
+  path      = "terragrunt-vars.auto.tfvars.json"
+  if_exists = "overwrite"
+  disable_signature = true
+  contents = <<EOF
+${jsonencode(local.inputs_from_tfvars)}
+EOF
+}
