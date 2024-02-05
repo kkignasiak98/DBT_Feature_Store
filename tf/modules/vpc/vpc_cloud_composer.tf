@@ -1,6 +1,7 @@
 resource "google_compute_network" "composer_network" {
   name                    = "composer-network"
   auto_create_subnetworks = false
+  project = var.project_ID
 }
 
 resource "google_compute_subnetwork" "composer_subnetwork" {
